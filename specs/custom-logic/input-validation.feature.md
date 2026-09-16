@@ -13,15 +13,6 @@ query pushed down to the database.
 ## Author must exist @v1 [published]
 
 - **Given** an administrator creates or updates a book through `/admin/Books`
-- **When** `author_ID` refers to no existing author, for example 999
-- **Then** the request is rejected with 400
-- **And** the message is "Specified Author does not exist"
-
-[test: requires the author to exist : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L24 ]
-
-## Author must exist @v2 [proposed]
-
-- **Given** an administrator creates or updates a book through `/admin/Books`
 - **When** @Books.author (`author_ID`) refers to no existing author, for example 999
 - **Then** the request is rejected with 400
 - **And** the message is "Specified Author does not exist"
@@ -51,16 +42,6 @@ query pushed down to the database.
 ## Genre is mandatory and must exist @v1 [published]
 
 - **Given** an administrator creates a book
-- **When** `genre_ID` is missing
-- **Then** the request is rejected with 400 as a missing mandatory field
-- **When** `genre_ID` is 99, which no genre has
-- **Then** the request is rejected with 400 and "Specified Genre does not exist"
-
-[test: requires the genre and that it exists : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L29 ]
-
-## Genre is mandatory and must exist @v2 [proposed]
-
-- **Given** an administrator creates a book
 - **When** @Books.genre (`genre_ID`) is missing
 - **Then** the request is rejected with 400 as a missing mandatory field
 - **When** @Books.genre is 99, which no genre has
@@ -69,22 +50,6 @@ query pushed down to the database.
 [test: requires the genre and that it exists : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L29 ]
 
 ## Price must be between 1 and 111 @v1 [published]
-
-- **Given** `price @assert.range: [1,111]`, both ends inclusive
-- **When** an administrator creates a book with a price
-- **Then** the request succeeds or fails as follows
-
-| price  | result   |
-| ------ | -------- |
-| 0.99   | rejected |
-| 1      | accepted |
-| 55.50  | accepted |
-| 111    | accepted |
-| 111.01 | rejected |
-
-[test: accepts prices between 1 and 111 inclusive : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L36 ]
-
-## Price must be between 1 and 111 @v2 [proposed]
 
 - **Given** @price is constrained with `@assert.range: [1,111]`, both ends inclusive
 - **When** an administrator creates a book with a @price
@@ -102,21 +67,6 @@ query pushed down to the database.
 
 ## Stock must be positive @v1 [published]
 
-- **Given** `stock @assert.range: [(0),_]`, an open lower bound of 0 and no upper bound
-- **When** an administrator creates a book with a stock
-- **Then** the request succeeds or fails as follows
-
-| stock | result   |
-| ----- | -------- |
-| -1    | rejected |
-| 0     | rejected |
-| 1     | accepted |
-| 555   | accepted |
-
-[test: accepts only positive stock : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L43 ]
-
-## Stock must be positive @v2 [proposed]
-
 - **Given** @stock is constrained with `@assert.range: [(0),_]`, an open lower bound of 0 and no upper bound
 - **When** an administrator creates a book with a @stock
 - **Then** the request succeeds or fails as follows
@@ -131,15 +81,6 @@ query pushed down to the database.
 [test: accepts only positive stock : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L43 ]
 
 ## Title is mandatory @v1 [published]
-
-- **Given** an administrator creates a book through `/admin/Books`
-- **When** `title` is missing or empty
-- **Then** the request is rejected with 400
-- **And** the error names the field `title`
-
-[test: requires the title : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L18 ]
-
-## Title is mandatory @v2 [proposed]
 
 - **Given** an administrator creates a book through `/admin/Books`
 - **When** @title is missing or empty

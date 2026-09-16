@@ -28,15 +28,6 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 
 ## Ordering reduces stock @v1 [published]
 
-- **Given** book 201 has 12 in stock
-- **When** `bob` posts `{ "book": 201, "quantity": 3 }` to `/browse/submitOrder`
-- **Then** the request succeeds
-- **And** `GET /admin/Books/201/stock/$value` returns 9
-
-[test: reduces the stock : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L59 ]
-
-## Ordering reduces stock @v2 [proposed]
-
 - **Given** book 201 has 12 in @stock
 - **When** `bob` posts `{ "book": 201, "quantity": 3 }` to `/browse/submitOrder`
 - **Then** the request succeeds
@@ -45,16 +36,6 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 [test: reduces the stock : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L59 ]
 
 ## Orders beyond stock are rejected @v1 [published]
-
-- **Given** book 201 has 2 in stock after two orders of 5
-- **When** `bob` orders 5 more of book 201
-- **Then** the response is 409 Conflict
-- **And** the message is "5 exceeds stock for book #201"
-- **And** the stock stays at 2
-
-[test: should reject out-of-stock orders : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L65 ]
-
-## Orders beyond stock are rejected @v2 [proposed]
 
 - **Given** book 201 has 2 in @stock after two orders of 5
 - **When** `bob` orders 5 more of book 201
@@ -74,22 +55,6 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 [test: rejects quantities below one : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L72 ]
 
 ## Stock can be ordered down to zero @v1 [published]
-
-- **Given** book 201 has 12 in stock
-- **When** `bob` sends the same order of 3 repeatedly
-- **Then** the requests succeed until the stock is depleted
-
-| order | stock before | result             | stock after |
-| ----- | ------------ | ------------------ | ----------- |
-| 1     | 12           | accepted           | 9           |
-| 2     | 9            | accepted           | 6           |
-| 3     | 6            | accepted           | 3           |
-| 4     | 3            | accepted           | 0           |
-| 5     | 0            | 409, exceeds stock | 0           |
-
-[test: orders the stock down to zero : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L78 ]
-
-## Stock can be ordered down to zero @v2 [proposed]
 
 - **Given** book 201 has 12 in @stock
 - **When** `bob` sends the same order of 3 repeatedly

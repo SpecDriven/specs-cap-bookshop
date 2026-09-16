@@ -23,24 +23,6 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 
 - **Given** the seed data
 - **When** a client sends `GET /browse/Books?$select=ID,title,genre`
-- **Then** `genre` is the genre's name, not a nested object
-
-| ID  | title             | genre   |
-| --- | ----------------- | ------- |
-| 201 | Wuthering Heights | Drama   |
-| 207 | Jane Eyre         | Drama   |
-| 251 | The Raven         | Mystery |
-| 252 | Eleonora          | Romance |
-| 271 | Catweazle         | Fantasy |
-
-- **And** `author` is likewise the author's name
-
-[test: flattens author and genre to names : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L111 ]
-
-## Author and genre are flattened to names @v2 [proposed]
-
-- **Given** the seed data
-- **When** a client sends `GET /browse/Books?$select=ID,title,genre`
 - **Then** @Books.genre is the genre's name, not a nested object
 
 | ID  | title             | genre   |
@@ -74,19 +56,6 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 [test: rejects writes to the read-only Books : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L134 ]
 
 ## Filter by author name @v1 [published]
-
-- **Given** the seed data
-- **When** a client sends `GET /browse/Books?$select=ID,title,author&$filter=contains(author,'Bro')`
-- **Then** only the Brontë books are returned
-
-| ID  | title             | author           |
-| --- | ----------------- | ---------------- |
-| 201 | Wuthering Heights | Emily Brontë     |
-| 207 | Jane Eyre         | Charlotte Brontë |
-
-[test: filters by author name : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L143 ]
-
-## Filter by author name @v2 [proposed]
 
 - **Given** the seed data
 - **When** a client sends `GET /browse/Books?$select=ID,title,author&$filter=contains(author,'Bro')`
@@ -128,14 +97,6 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 [test: supports $search in multiple fields : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L171 ]
 
 ## Select a subset of fields @v1 [published]
-
-- **Given** the seed data
-- **When** a client sends `GET /browse/Books?$select=ID,title`
-- **Then** each of the five books comes with only `ID` and `title`
-
-[test: supports $select : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L182 ]
-
-## Select a subset of fields @v2 [proposed]
 
 - **Given** the seed data
 - **When** a client sends `GET /browse/Books?$select=ID,title`

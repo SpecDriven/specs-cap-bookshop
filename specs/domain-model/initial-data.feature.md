@@ -46,15 +46,6 @@ files, and `cds add data --records 10` generates sample records.
 
 - **Given** `Books.csv` has the columns `author_ID` and `genre_ID`
 - **When** book 251 is loaded with `author_ID` 150 and `genre_ID` 16
-- **Then** its author resolves to Edgar Allan Poe
-- **And** its genre resolves to Mystery
-
-[test: resolves foreign keys given as association_ID columns : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L38 ]
-
-## Foreign keys are given as `<association>_ID` columns @v2 [proposed]
-
-- **Given** `Books.csv` has the columns `author_ID` and `genre_ID`
-- **When** book 251 is loaded with `author_ID` 150 and `genre_ID` 16
 - **Then** its @Books.author resolves to Edgar Allan Poe
 - **And** its @Books.genre resolves to Mystery
 

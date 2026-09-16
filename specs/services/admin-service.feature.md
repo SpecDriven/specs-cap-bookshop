@@ -11,14 +11,6 @@ separately (custom-logic/input-validation.feature.md).
 
 ## A single field is readable as a raw value @v1 [published]
 
-- **Given** book 201 has 12 in stock
-- **When** a client sends `GET /admin/Books/201/stock/$value`
-- **Then** the response body is the bare value `12`
-
-[test: supports $value requests : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L200 ]
-
-## A single field is readable as a raw value @v2 [proposed]
-
 - **Given** book 201 has 12 in @stock
 - **When** a client sends `GET /admin/Books/201/stock/$value`
 - **Then** the response body is the bare value `12`
@@ -43,21 +35,6 @@ separately (custom-logic/input-validation.feature.md).
 [test: exposes all three entities as-is : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L215 ]
 
 ## Authors expand to their books @v1 [published]
-
-- **Given** the seed data (domain-model/initial-data.feature.md)
-- **When** a client sends `GET /admin/Authors?$select=ID,name&$expand=books($select=ID,title)`
-- **Then** each author comes with the books written by them
-
-| ID  | name              | books                              |
-| --- | ----------------- | ---------------------------------- |
-| 101 | Emily Brontë      | 201 Wuthering Heights              |
-| 107 | Charlotte Brontë  | 207 Jane Eyre                      |
-| 150 | Edgar Allan Poe   | 251 The Raven, 252 Eleonora        |
-| 170 | Richard Carpenter | 271 Catweazle                      |
-
-[test: supports $expand : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L205 ]
-
-## Authors expand to their books @v2 [proposed]
 
 - **Given** the seed data (domain-model/initial-data.feature.md)
 - **When** a client sends `GET /admin/Authors?$select=ID,name&$expand=books($select=ID,title)`
