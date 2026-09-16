@@ -21,9 +21,13 @@ to Fiori previews that give a first glimpse of Fiori UIs without writing one.
 - **And** `/browse` with Books
 - **And** each entity links to its OData collection
 
+[test: lists every served endpoint : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L94 ]
+
 ## Fiori preview links open a generic list report @v1 [published]
 
 - **Given** the welcome page lists an entity
 - **When** its "Fiori preview" link is opened
 - **Then** a generic Fiori elements list report shows the entity's data
 - **And** search, value helps and Fiori draft work from the CDS annotations (roadmap/fiori-ui.md)
+
+[test: links to Fiori previews : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L101 ]

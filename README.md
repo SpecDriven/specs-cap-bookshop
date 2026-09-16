@@ -17,10 +17,10 @@ sample (https://github.com/capire/bookshop) or its sibling in
 https://github.com/SAP-samples/cloud-cap-samples/tree/main/bookshop, and are
 up for discussion.
 
-Test links point at the sample's own tests in
-https://github.com/SAP-samples/cloud-cap-samples/tree/main/bookshop/test.
-Run them with `npm test` in that repo.
+The Node.js implementation generated from these specs lives in
+https://github.com/SpecDriven/bookshop-cap-js. Every scenario that has a test
+links to it with a `[test: … ]` line pointing at that repo's `test/` folder.
+Run them with `npm test` there.
 
-Set `code-repo` in `project-settings.json` to the folder holding a checkout
-of the bookshop (default `../bookshop`, as cloned from capire/bookshop) so the
-editor can offer the CDS entity fields.
+`code-repo` in `project-settings.json` points at a checkout of that repo
+(default `../bookshop-cap-js`) so the editor can offer the CDS entity fields.

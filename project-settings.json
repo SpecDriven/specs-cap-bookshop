@@ -5,5 +5,5 @@
     { "name": "Mia Kowalski", "email": "mia.kowalski@capire-books.example" },
     { "name": "Raj Patel", "email": "raj.patel@capire-books.example" }
   ],
-  "code-repo": "../bookshop"
+  "code-repo": "../bookshop-cap-js"
 }

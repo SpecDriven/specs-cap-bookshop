@@ -16,6 +16,8 @@ with the files on disk throughout.
 - **And** `bob` signs in the same way
 - **And** a request without the header runs anonymously
 
+[test: signs mock users in with basic auth : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L46 ]
+
 ## OData v4 metadata is served @v1 [published]
 
 - **Given** `CatalogService` is mounted at `/browse`
@@ -23,7 +25,7 @@ with the files on disk throughout.
 - **Then** the response is 200 with the header `odata-version: 4.0` and an XML body
 - **And** the body declares the entity set `Books` of type `CatalogService.Books`
 
-[test: serves $metadata documents in v4 : https://github.com/SAP-samples/cloud-cap-samples/blob/main/bookshop/test/odata.test.js#L7 ]
+[test: serves $metadata documents in v4 : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L11 ]
 
 ## Requests are sent from a REST client file @v1 [published]
 
@@ -31,12 +33,16 @@ with the files on disk throughout.
 - **When** it holds a `GET` on `/browse/Books` with `$select` and `$filter`, and a `GET` on `/admin/Authors` with `$expand` and basic auth
 - **Then** each request can be sent from the editor and answered by the running server
 
+[test: sends every request in test/requests.http : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L54 ]
+
 ## Service definitions compile to EDMX @v1 [published]
 
 - **Given** `srv/cat-service.cds`
 - **When** `cds compile srv/cat-service.cds --to edmx` runs
 - **Then** an OData EDMX metadata document is printed
 - **And** it is the same document the server serves at `/browse/$metadata`
+
+[test: serves the same EDMX as cds compile --to edmx : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L19 ]
 
 ## Services are mounted at their declared paths @v1 [published]
 
@@ -51,12 +57,16 @@ with the files on disk throughout.
 
 - **And** the server listens on `http://localhost:4004`
 
+[test: mounts services at their declared paths : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L30 ]
+
 ## Services can be reached from the browser @v1 [published]
 
 - **Given** the server is running
 - **When** `http://localhost:4004/browse/Books?$select=ID,title,genre` is opened in a browser
 - **Then** the five books are returned as an OData JSON collection
 - **And** `http://localhost:4004/admin/Authors?$select=ID,name&$expand=books($select=ID,title)` returns the authors with their books
+
+[test: answers the browser URLs from the tutorial : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L38 ]
 
 ## The watcher waits for content and restarts on change @v1 [published]
 

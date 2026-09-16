@@ -15,6 +15,8 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 - **Then** the service emits `OrderedBook` with the book, the quantity and the id of the ordering user
 - **And** other services may subscribe to it
 
+[test: emits an OrderedBook event : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/consuming-actions.test.js#L21 ]
+
 ## Anonymous users cannot order @v1 [published]
 
 - **Given** the action is annotated `@requires: 'authenticated-user'`
@@ -22,12 +24,16 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 - **Then** the response is 401 Unauthorized
 - **And** no stock changes
 
+[test: rejects anonymous orders : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L54 ]
+
 ## Ordering reduces stock @v1 [published]
 
 - **Given** book 201 has 12 in stock
 - **When** `bob` posts `{ "book": 201, "quantity": 3 }` to `/browse/submitOrder`
 - **Then** the request succeeds
 - **And** `GET /admin/Books/201/stock/$value` returns 9
+
+[test: reduces the stock : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L59 ]
 
 ## Orders beyond stock are rejected @v1 [published]
 
@@ -37,7 +43,7 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 - **And** the message is "5 exceeds stock for book #201"
 - **And** the stock stays at 2
 
-[test: should reject out-of-stock orders : https://github.com/SAP-samples/cloud-cap-samples/blob/main/bookshop/test/custom-handlers.test.js#L7 ]
+[test: should reject out-of-stock orders : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L65 ]
 
 ## Quantity must be at least one @v1 [proposed]
 
@@ -45,6 +51,8 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 - **When** `quantity` is 0 or negative
 - **Then** the response is 400 with "quantity has to be 1 or more"
 - **And** no stock changes
+
+[test: rejects quantities below one : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L72 ]
 
 ## Stock can be ordered down to zero @v1 [published]
 
@@ -60,6 +68,8 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 | 4     | 3            | accepted           | 0           |
 | 5     | 0            | 409, exceeds stock | 0           |
 
+[test: orders the stock down to zero : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L78 ]
+
 ## Stock check and update are one statement @v1 [published]
 
 - **Given** the handler runs `UPDATE Books SET stock = stock - quantity WHERE stock >= quantity`
@@ -67,16 +77,20 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 - **Then** at most one of them succeeds
 - **And** the stock never goes below zero
 
+[test: checks and updates the stock in one statement : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L87 ]
+
 ## The action returns the remaining stock @v1 [proposed]
 
 - **Given** the cloud-cap-samples variant declares `returns { stock: Integer }`
 - **When** `alice` orders 1 of book 251
 - **Then** the response body carries the stock after the order, one less than before
 
-[test: calls unbound actions - basic variant using srv.send : https://github.com/SAP-samples/cloud-cap-samples/blob/main/bookshop/test/consuming-actions.test.js#L30 ]
+[test: calls unbound actions - basic variant using srv.send : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/consuming-actions.test.js#L15 ]
 
 ## Unknown books are reported @v1 [proposed]
 
 - **Given** no book has the id 999
 - **When** `bob` orders any quantity of book 999
 - **Then** the response is 404 with "Book #999 doesn't exist"
+
+[test: reports unknown books : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L94 ]

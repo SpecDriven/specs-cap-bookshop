@@ -15,12 +15,16 @@ files, and `cds add data --records 10` generates sample records.
 - **And** reports `/> successfully deployed to in-memory database.`
 - **And** the database is a development stand-in only — production targets SAP HANA (roadmap/production-database.md)
 
+[test: deploys an in-memory database automatically : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L8 ]
+
 ## CSV files are loaded on every restart @v1 [published]
 
 - **Given** the files `sap.capire.bookshop-Authors.csv`, `sap.capire.bookshop-Books.csv` and `sap.capire.bookshop-Genres.csv` in `db/data`
 - **When** `cds watch` restarts the server
 - **Then** the log lists `> init from db/data/<file>` once per file
 - **And** every row of every file is in the database afterwards
+
+[test: loads every CSV file on every restart : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L13 ]
 
 ## Five books are seeded @v1 [published]
 
@@ -36,12 +40,16 @@ files, and `cds add data --records 10` generates sample records.
 | 252 | Eleonora          | 150       | 15       | 555   |
 | 271 | Catweazle         | 170       | 13       | 22    |
 
+[test: seeds five books : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L27 ]
+
 ## Foreign keys are given as `<association>_ID` columns @v1 [published]
 
 - **Given** `Books.csv` has the columns `author_ID` and `genre_ID`
 - **When** book 251 is loaded with `author_ID` 150 and `genre_ID` 16
 - **Then** its author resolves to Edgar Allan Poe
 - **And** its genre resolves to Mystery
+
+[test: resolves foreign keys given as association_ID columns : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L38 ]
 
 ## Four authors are seeded @v1 [published]
 
@@ -56,6 +64,8 @@ files, and `cds add data --records 10` generates sample records.
 | 150 | Edgar Allan Poe   |
 | 170 | Richard Carpenter |
 
+[test: seeds four authors : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L43 ]
+
 ## Four genres are seeded @v1 [published]
 
 - **Given** `sap.capire.bookshop-Genres.csv`
@@ -68,6 +78,8 @@ files, and `cds add data --records 10` generates sample records.
 | 13 | Fantasy |
 | 15 | Romance |
 | 16 | Mystery |
+
+[test: seeds four genres : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L53 ]
 
 ## Genres are a full hierarchy in the ready-made sample @v1 [proposed]
 
@@ -83,3 +95,5 @@ files, and `cds add data --records 10` generates sample records.
 - **When** a client reads book 201 with `Accept-Language: de`
 - **Then** its title is "Sturmhöhe"
 - **And** a client without a matching locale still gets "Wuthering Heights"
+
+[test: seeds translated titles from a texts file : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L63 ]
