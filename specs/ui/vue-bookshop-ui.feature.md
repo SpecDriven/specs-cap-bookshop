@@ -12,14 +12,14 @@ build it, so every scenario here is proposed.
 
 - **Given** the page has loaded
 - **When** it requests `/browse/ListOfBooks?$expand=genre($select=name),currency($select=symbol)`
-- **Then** the table shows one row per book with title, author, genre name and price with its currency symbol
+- **Then** the table shows one row per book with @title, @ListOfBooks.author, @ListOfBooks.genre and @price with its @currency symbol
 
 ## Clicking a row shows the book's details @v1 [proposed]
 
 - **Given** the list is shown
 - **When** the visitor clicks a row
 - **Then** the page requests `/browse/Books/{ID}?$select=descr,stock,image`
-- **And** shows the description, the cover image and "N in stock"
+- **And** shows the @descr, the cover image and the @stock as "N in stock"
 
 ## Login shows the current user @v1 [proposed]
 
@@ -33,7 +33,7 @@ build it, so every scenario here is proposed.
 - **Given** a book's details are shown with a quantity field defaulting to 1
 - **When** the visitor submits an order
 - **Then** the page posts `{ book, quantity }` to `/browse/submitOrder` (custom-logic/submit-order.feature.md)
-- **And** on success shows "Successfully ordered N item(s)." and the new stock
+- **And** on success shows "Successfully ordered N item(s)." and the new @stock
 - **And** on failure shows the server's error message in red
 
 ## Typing in the search box filters the list @v1 [proposed]

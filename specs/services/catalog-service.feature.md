@@ -4,7 +4,7 @@
 
 `CatalogService`, served at `/browse` (`srv/cat-service.cds`), is for
 visitors to browse and order books. It serves a denormalized, read-only view on
-Books with `author` and `genre` flattened to their names, to simplify
+Books with @Books.author and @Books.genre flattened to their names, to simplify
 browsing. Authors and Genres are not exposed, nor are the internal admin
 details `createdBy` and `modifiedBy`. Ordering is the action described in
 custom-logic/submit-order.feature.md; the discount note on overstocked books
@@ -12,9 +12,9 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 
 ## A list view leaves out the description @v1 [proposed]
 
-- **Given** the ready-made sample's `ListOfBooks` projection, which excludes `descr`
+- **Given** the ready-made sample's `ListOfBooks` projection, which excludes @descr
 - **When** a client sends `GET /browse/ListOfBooks?$expand=genre($select=name),currency($select=symbol)`
-- **Then** each book comes with its genre name and currency symbol but no description
+- **Then** each book comes with its @ListOfBooks.genre name and @currency symbol but no description
 - **And** book 251 shows genre "Mystery" and the currency symbol "$"
 
 [test: serves ListOfBooks with the currency expanded : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L188 ]
@@ -34,6 +34,24 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 | 271 | Catweazle         | Fantasy |
 
 - **And** `author` is likewise the author's name
+
+[test: flattens author and genre to names : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L111 ]
+
+## Author and genre are flattened to names @v2 [proposed]
+
+- **Given** the seed data
+- **When** a client sends `GET /browse/Books?$select=ID,title,genre`
+- **Then** @Books.genre is the genre's name, not a nested object
+
+| ID  | title             | genre   |
+| --- | ----------------- | ------- |
+| 201 | Wuthering Heights | Drama   |
+| 207 | Jane Eyre         | Drama   |
+| 251 | The Raven         | Mystery |
+| 252 | Eleonora          | Romance |
+| 271 | Catweazle         | Fantasy |
+
+- **And** @Books.author is likewise the author's name
 
 [test: flattens author and genre to names : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L111 ]
 
@@ -68,6 +86,19 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 
 [test: filters by author name : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L143 ]
 
+## Filter by author name @v2 [proposed]
+
+- **Given** the seed data
+- **When** a client sends `GET /browse/Books?$select=ID,title,author&$filter=contains(author,'Bro')`
+- **Then** only the Brontë books are returned, matched on @Books.author
+
+| ID  | title             | author           |
+| --- | ----------------- | ---------------- |
+| 201 | Wuthering Heights | Emily Brontë     |
+| 207 | Jane Eyre         | Charlotte Brontë |
+
+[test: filters by author name : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L143 ]
+
 ## Internal admin fields are hidden @v1 [published]
 
 - **Given** the projection excludes `createdBy` and `modifiedBy`
@@ -91,7 +122,7 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 
 - **Given** the seed data with descriptions
 - **When** a client sends `GET /browse/Books?$search=Po&$select=title,author`
-- **Then** every book whose title, author or description contains "Po", ignoring case, is returned
+- **Then** every book whose @title, @Books.author or @descr contains "Po", ignoring case, is returned
 - **And** that includes the Poe books and the Brontë books whose descriptions mention publication
 
 [test: supports $search in multiple fields : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L171 ]
@@ -101,5 +132,13 @@ is custom-logic/discount-for-overstocked-books.feature.md.
 - **Given** the seed data
 - **When** a client sends `GET /browse/Books?$select=ID,title`
 - **Then** each of the five books comes with only `ID` and `title`
+
+[test: supports $select : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L182 ]
+
+## Select a subset of fields @v2 [proposed]
+
+- **Given** the seed data
+- **When** a client sends `GET /browse/Books?$select=ID,title`
+- **Then** each of the five books comes with only @Books.ID and @title
 
 [test: supports $select : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/odata.test.js#L182 ]

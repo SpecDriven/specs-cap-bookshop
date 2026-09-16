@@ -9,7 +9,7 @@ The tutorial's CSV files and the ready-made sample's disagree
   hierarchy keyed by UUIDs in the sample.
 - The sample spells the author "Edgar Allen Poe"; the tutorial and the
   author's name have "Allan". The sample's OData tests assert the misspelling.
-- The tutorial's Books rows have no `descr`, `price` or `currency`; the
+- The tutorial's Books rows have no @descr, @price or @currency; the
   sample's do.
 
 Decide which is canonical for this repo, fix the other, and move the two

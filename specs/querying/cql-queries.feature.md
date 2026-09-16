@@ -53,7 +53,7 @@ await SELECT `ID, title, genre.name as genre` .from `Books`
 ## Queries filter and expand along associations @v1 [proposed]
 
 - **Given** `AdminService` connected locally
-- **When** authors are read with their books and each book's currency name and symbol, filtered by `name like 'E%'`
+- **When** authors are read with their @books and each book's @currency name and symbol, filtered by @name `like 'E%'`
 - **Then** Emily Brontë comes with Wuthering Heights in British Pound (£)
 - **And** Edgar Allan Poe comes with The Raven and Eleonora in US Dollar ($)
 - **And** Charlotte Brontë and Richard Carpenter are not in the result

@@ -51,6 +51,15 @@ files, and `cds add data --records 10` generates sample records.
 
 [test: resolves foreign keys given as association_ID columns : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L38 ]
 
+## Foreign keys are given as `<association>_ID` columns @v2 [proposed]
+
+- **Given** `Books.csv` has the columns `author_ID` and `genre_ID`
+- **When** book 251 is loaded with `author_ID` 150 and `genre_ID` 16
+- **Then** its @Books.author resolves to Edgar Allan Poe
+- **And** its @Books.genre resolves to Mystery
+
+[test: resolves foreign keys given as association_ID columns : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L38 ]
+
 ## Four authors are seeded @v1 [published]
 
 - **Given** `sap.capire.bookshop-Authors.csv`
@@ -91,9 +100,9 @@ files, and `cds add data --records 10` generates sample records.
 
 ## Translated titles are seeded from a texts file @v1 [proposed]
 
-- **Given** `sap.capire.bookshop-Books.texts.csv` with `locale`, `title` and `descr` per book
+- **Given** `sap.capire.bookshop-Books.texts.csv` with `locale`, @title and @descr per book
 - **When** a client reads book 201 with `Accept-Language: de`
-- **Then** its title is "Sturmhöhe"
+- **Then** its @title is "Sturmhöhe"
 - **And** a client without a matching locale still gets "Wuthering Heights"
 
 [test: seeds translated titles from a texts file : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L63 ]

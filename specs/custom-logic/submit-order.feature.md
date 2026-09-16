@@ -35,6 +35,15 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 
 [test: reduces the stock : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L59 ]
 
+## Ordering reduces stock @v2 [proposed]
+
+- **Given** book 201 has 12 in @stock
+- **When** `bob` posts `{ "book": 201, "quantity": 3 }` to `/browse/submitOrder`
+- **Then** the request succeeds
+- **And** `GET /admin/Books/201/stock/$value` returns 9
+
+[test: reduces the stock : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L59 ]
+
 ## Orders beyond stock are rejected @v1 [published]
 
 - **Given** book 201 has 2 in stock after two orders of 5
@@ -45,12 +54,22 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 
 [test: should reject out-of-stock orders : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L65 ]
 
+## Orders beyond stock are rejected @v2 [proposed]
+
+- **Given** book 201 has 2 in @stock after two orders of 5
+- **When** `bob` orders 5 more of book 201
+- **Then** the response is 409 Conflict
+- **And** the message is "5 exceeds stock for book #201"
+- **And** the @stock stays at 2
+
+[test: should reject out-of-stock orders : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L65 ]
+
 ## Quantity must be at least one @v1 [proposed]
 
 - **Given** the ready-made sample's handler
 - **When** `quantity` is 0 or negative
 - **Then** the response is 400 with "quantity has to be 1 or more"
-- **And** no stock changes
+- **And** no @stock changes
 
 [test: rejects quantities below one : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L72 ]
 
@@ -59,6 +78,22 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 - **Given** book 201 has 12 in stock
 - **When** `bob` sends the same order of 3 repeatedly
 - **Then** the requests succeed until the stock is depleted
+
+| order | stock before | result             | stock after |
+| ----- | ------------ | ------------------ | ----------- |
+| 1     | 12           | accepted           | 9           |
+| 2     | 9            | accepted           | 6           |
+| 3     | 6            | accepted           | 3           |
+| 4     | 3            | accepted           | 0           |
+| 5     | 0            | 409, exceeds stock | 0           |
+
+[test: orders the stock down to zero : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/custom-handlers.test.js#L78 ]
+
+## Stock can be ordered down to zero @v2 [proposed]
+
+- **Given** book 201 has 12 in @stock
+- **When** `bob` sends the same order of 3 repeatedly
+- **Then** the requests succeed until the @stock is depleted
 
 | order | stock before | result             | stock after |
 | ----- | ------------ | ------------------ | ----------- |
@@ -83,13 +118,13 @@ otherwise fail. Actual order management is out of scope for the bookshop.
 
 - **Given** the cloud-cap-samples variant declares `returns { stock: Integer }`
 - **When** `alice` orders 1 of book 251
-- **Then** the response body carries the stock after the order, one less than before
+- **Then** the response body carries the @stock after the order, one less than before
 
 [test: calls unbound actions - basic variant using srv.send : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/consuming-actions.test.js#L15 ]
 
 ## Unknown books are reported @v1 [proposed]
 
-- **Given** no book has the id 999
+- **Given** no book has the @Books.ID 999
 - **When** `bob` orders any quantity of book 999
 - **Then** the response is 404 with "Book #999 doesn't exist"
 

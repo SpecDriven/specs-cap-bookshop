@@ -19,10 +19,29 @@ entities (custom-logic/input-validation.feature.md).
 
 [test: gives a book one author and one genre : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L8 ]
 
+## A book belongs to one author and one genre @v2 [proposed]
+
+- **Given** the entity `Books`
+- **Then** it has the key @Books.ID of type Integer
+- **And** the localized strings @title and @descr
+- **And** an Integer @stock, a Decimal @price and a @currency
+- **And** a to-one association @Books.author to Authors
+- **And** a to-one association @Books.genre to Genres
+
+[test: gives a book one author and one genre : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L8 ]
+
 ## An author has many books @v1 [published]
 
 - **Given** the entity `Authors` with the key `ID` (Integer) and a `name`
 - **Then** its to-many association `books` resolves to every book whose `author` is this author
+- **And** the association is declared with the on-condition `books.author = $self`
+
+[test: gives an author many books : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L23 ]
+
+## An author has many books @v2 [proposed]
+
+- **Given** the entity `Authors` with the key @Authors.ID (Integer) and a @name
+- **Then** its to-many association @books resolves to every book whose @Books.author is this author
 - **And** the association is declared with the on-condition `books.author = $self`
 
 [test: gives an author many books : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L23 ]
@@ -43,11 +62,27 @@ entities (custom-logic/input-validation.feature.md).
 
 [test: takes Currency from the common reuse types : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L42 ]
 
+## Currency comes from the common reuse types @v2 [proposed]
+
+- **Given** `Currency` is imported from `@sap/cds/common`
+- **Then** a book's @currency is an association to the common Currencies code list, keyed by `code`
+- **And** the compiled Books table stores it in the column `currency_code`
+
+[test: takes Currency from the common reuse types : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L42 ]
+
 ## Genres form a hierarchy @v1 [published]
 
 - **Given** the entity `Genres` is a code list (`sap.common.CodeList`) with the key `ID` (Integer) and a `name`
 - **Then** a genre may point to a `parent` genre
 - **And** a top-level genre has no parent
+
+[test: lets genres form a hierarchy : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L51 ]
+
+## Genres form a hierarchy @v2 [proposed]
+
+- **Given** the entity `Genres` is a code list (`sap.common.CodeList`) with the key @Genres.ID (Integer) and a `name`
+- **Then** a genre may point to a @parent genre
+- **And** a top-level genre has no @parent
 
 [test: lets genres form a hierarchy : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/domain-model.test.js#L51 ]
 
