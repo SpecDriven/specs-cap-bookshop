@@ -93,7 +93,7 @@ files, and `cds add data --records 10` generates sample records.
 
 - **Given** `sap.capire.bookshop-Books.texts.csv` with `locale`, @title and @descr per book
 - **When** a client reads book 201 with `Accept-Language: de`
-- **Then** its @ is "Sturmhöhe"
+- **Then** its @title is "Sturmhöhe"
 - **And** a client without a matching locale still gets "Wuthering Heights"
 
 [test: seeds translated titles from a texts file : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/initial-data.test.js#L63 ]
