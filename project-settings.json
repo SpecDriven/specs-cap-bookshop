@@ -1,0 +1,9 @@
+{
+  "members": [
+    { "name": "Lena Schmidt", "email": "lena.schmidt@capire-books.example" },
+    { "name": "Tom Fischer", "email": "tom.fischer@capire-books.example" },
+    { "name": "Mia Kowalski", "email": "mia.kowalski@capire-books.example" },
+    { "name": "Raj Patel", "email": "raj.patel@capire-books.example" }
+  ],
+  "code-repo": "../bookshop"
+}
