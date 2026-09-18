@@ -27,6 +27,8 @@ query pushed down to the database.
 - **When** a genre is saved without a `name`, or with itself as @parent
 - **Then** the request is rejected with 400 and "A genre cannot be its own parent" for the latter
 
+@
+
 [test: validates authors and genres too : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L59 ]
 
 ## Constraints are enforced by the generic runtime @v1 [published]
