@@ -29,6 +29,11 @@ query pushed down to the database.
 
 @
 
+|          |         |
+| -------- | ------- |
+| Employee | SDalary |
+|          |         |
+
 [test: validates authors and genres too : https://github.com/SpecDriven/bookshop-cap-js/blob/main/test/constraints.test.js#L59 ]
 
 ## Constraints are enforced by the generic runtime @v1 [published]
